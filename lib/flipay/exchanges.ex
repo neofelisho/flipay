@@ -5,26 +5,26 @@ defmodule Flipay.Exchanges do
   @doc """
   Get quotes by specific exchange name and input/output assets.
 
-  Examples:
+  ## Examples:
 
-  iex> input = %{exchange_name: "coinbase", input_asset: "USD", output_asset: "BTC"}
-  iex> quotes = Flipay.Exchanges.get_quotes(input)
-  iex> {:ok, quote_0} = Enum.fetch(quotes, 0)
-  iex> quote_0.price
-  #Decimal<5000>
-  iex> quote_0.size
-  #Decimal<2>
-  iex> {:ok, quote_1} = Enum.fetch(quotes, 1)
-  iex> quote_1.price
-  #Decimal<6000>
-  iex> quote_1.size
-  #Decimal<1>
-  iex> input = %{input | exchange_name: "hitbtc"}
-  iex> Flipay.Exchanges.get_quotes(input)
-  {:error, "not yet implemented"}
-  iex> input = %{input | exchange_name: "coinbase", output_asset: "TWD"}
-  iex> Flipay.Exchanges.get_quotes(input)
-  {:error, "output asset: unsupported asset type"}
+    iex> input = %{exchange_name: "coinbase", input_asset: "USD", output_asset: "BTC"}
+    iex> order_book = Flipay.Exchanges.get_quotes(input)
+    iex> {:ok, quote_0} = Enum.fetch(order_book.quotes, 0)
+    iex> quote_0.price
+    #Decimal<5000>
+    iex> quote_0.size
+    #Decimal<2>
+    iex> {:ok, quote_1} = Enum.fetch(order_book.quotes, 1)
+    iex> quote_1.price
+    #Decimal<6000>
+    iex> quote_1.size
+    #Decimal<1>
+    iex> input = %{input | exchange_name: "hitbtc"}
+    iex> Flipay.Exchanges.get_quotes(input)
+    {:error, "not yet implemented"}
+    iex> input = %{input | exchange_name: "coinbase", output_asset: "TWD"}
+    iex> Flipay.Exchanges.get_quotes(input)
+    {:error, "output asset: unsupported asset type"}
 
   """
   def get_quotes(%{
@@ -32,26 +32,12 @@ defmodule Flipay.Exchanges do
         input_asset: input_asset,
         output_asset: output_asset
       }) do
-    case get_exchange(exchange_name) do
-      {:error, reason} ->
-        {:error, reason}
-
-      {:ok, order_book} ->
-        case order_book |> set_assets(input_asset, output_asset) do
-          {:error, reason} ->
-            {:error, reason}
-
-          {:ok, order_book} ->
-            case order_book |> get_order_book() do
-              {:error, reason} ->
-                {:error, reason}
-
-              {:ok, order_book} ->
-                order_book
-                |> filter_quotes()
-                |> sort_quotes()
-            end
-        end
+    with {:ok, order_book} <- get_exchange(exchange_name),
+         {:ok, order_book} <- set_assets(order_book, input_asset, output_asset),
+         {:ok, order_book} <- get_order_book(order_book) do
+      order_book
+      |> filter_quotes()
+      |> sort_quotes()
     end
   end
 
@@ -60,21 +46,33 @@ defmodule Flipay.Exchanges do
 
   ## Examples:
 
-  iex> order_book = %Flipay.Exchanges.OrderBook{quotes: [%{price: 5000}, %{price: 4900}, %{price: 5100}], exchange_side: "asks"}
-  iex> Flipay.Exchanges.sort_quotes(order_book)
-  [%{price: 4900}, %{price: 5000}, %{price: 5100}]
-  iex> order_book = %Flipay.Exchanges.OrderBook{order_book | exchange_side: "bids"}
-  iex> Flipay.Exchanges.sort_quotes(order_book)
-  [%{price: 5100}, %{price: 5000}, %{price: 4900}]
+    iex> order_book = %Flipay.Exchanges.OrderBook{quotes: [%{price: 5000}, %{price: 4900}, %{price: 5100}], exchange_side: "asks"}
+    iex> Flipay.Exchanges.sort_quotes(order_book)
+    %Flipay.Exchanges.OrderBook{
+      exchange: nil,
+      exchange_side: "asks",
+      input_asset: nil,
+      output_asset: nil,
+      quotes: [%{price: 4900}, %{price: 5000}, %{price: 5100}]
+    }
+    iex> order_book = %Flipay.Exchanges.OrderBook{order_book | exchange_side: "bids"}
+    iex> Flipay.Exchanges.sort_quotes(order_book)
+    %Flipay.Exchanges.OrderBook{
+      exchange: nil,
+      exchange_side: "bids",
+      input_asset: nil,
+      output_asset: nil,
+      quotes: [%{price: 5100}, %{price: 5000}, %{price: 4900}]
+    }
 
   """
-  def sort_quotes(%OrderBook{quotes: quotes, exchange_side: exchange_side}) do
+  def sort_quotes(%OrderBook{quotes: quotes, exchange_side: exchange_side} = order_book) do
     case exchange_side do
       "asks" ->
-        Enum.sort(quotes, fn x, y -> x.price < y.price end)
+        %OrderBook{order_book | quotes: Enum.sort(quotes, fn x, y -> x.price < y.price end)}
 
       "bids" ->
-        Enum.sort(quotes, fn x, y -> x.price > y.price end)
+        %OrderBook{order_book | quotes: Enum.sort(quotes, fn x, y -> x.price > y.price end)}
     end
   end
 
@@ -83,15 +81,15 @@ defmodule Flipay.Exchanges do
 
   ## Examples
 
-  iex> input = %Flipay.Exchanges.OrderBook{quotes: %{ "asks" => [["5000", "2", "1"]], "bids" => [["4900", "1", "2"]] }, exchange_side: "asks"}
-  iex> order_book = Flipay.Exchanges.filter_quotes(input)
-  iex> {:ok, quote} = Enum.fetch(order_book.quotes,0)
-  iex> quote.number_of_order
-  1
-  iex> quote.price
-  #Decimal<5000>
-  iex> quote.size
-  #Decimal<2>
+    iex> input = %Flipay.Exchanges.OrderBook{quotes: %{ "asks" => [["5000", "2", "1"]], "bids" => [["4900", "1", "2"]] }, exchange_side: "asks"}
+    iex> order_book = Flipay.Exchanges.filter_quotes(input)
+    iex> {:ok, quote} = Enum.fetch(order_book.quotes,0)
+    iex> quote.number_of_order
+    1
+    iex> quote.price
+    #Decimal<5000>
+    iex> quote.size
+    #Decimal<2>
 
   """
   def filter_quotes(%OrderBook{quotes: quotes, exchange_side: exchange_side} = order_book) do
@@ -109,61 +107,60 @@ defmodule Flipay.Exchanges do
   @doc """
   Get order books from exchange.
 
-  # Examples:
+  ## Examples:
 
-  iex> order_book = %Flipay.Exchanges.OrderBook{exchange: Flipay.Exchanges.Coinbase, input_asset: "USD", output_asset: "BTC"}
-  iex> {:ok, order_book} = Flipay.Exchanges.get_order_book(order_book)
-  iex> order_book
-  %Flipay.Exchanges.OrderBook{
-    exchange: Flipay.Exchanges.Coinbase,
-    exchange_side: nil,
-    input_asset: "USD",
-    output_asset: "BTC",
-    quotes: %{
-      "asks" => [["5000", "2", "1"], ["6000", "1", "1"]],
-      "bids" => [["4000", "10", "1"], ["3900", "1", "1"]]
+    iex> order_book = %Flipay.Exchanges.OrderBook{exchange: Flipay.Exchanges.Coinbase, input_asset: "USD", output_asset: "BTC"}
+    iex> {:ok, order_book} = Flipay.Exchanges.get_order_book(order_book)
+    iex> order_book
+    %Flipay.Exchanges.OrderBook{
+      exchange: Flipay.Exchanges.Coinbase,
+      exchange_side: nil,
+      input_asset: "USD",
+      output_asset: "BTC",
+      quotes: %{
+        "asks" => [["5000", "2", "1"], ["6000", "1", "1"]],
+        "bids" => [["4000", "10", "1"], ["3900", "1", "1"]]
+      }
     }
-  }
 
   """
   def get_order_book(
         %OrderBook{exchange: exchange, input_asset: input_asset, output_asset: output_asset} =
           order_book
       ) do
-    case exchange.get_order_book(input_asset, output_asset) do
-      {:ok, result} -> {:ok, %OrderBook{order_book | quotes: result |> Jason.decode!()}}
-      {:error, reason} -> {:error, reason}
+    with {:ok, result} <- exchange.get_order_book(input_asset, output_asset) do
+      {:ok, %OrderBook{order_book | quotes: result |> Jason.decode!()}}
     end
   end
 
   @doc """
   Sets input/output assets and determine the exchange side.
 
-  Examples:
+  ## Examples:
 
-  iex> order_book = %Flipay.Exchanges.OrderBook{}
-  iex> Flipay.Exchanges.set_assets(order_book, "USD", "BTC")
-  {:ok,
-   %Flipay.Exchanges.OrderBook{
-    exchange: nil,
-    exchange_side: "asks",
-    input_asset: "USD",
-    output_asset: "BTC",
-    quotes: nil
-  }}
-  iex> Flipay.Exchanges.set_assets(order_book, "ETH", "USD")
-  {:ok,
-   %Flipay.Exchanges.OrderBook{
-    exchange: nil,
-    exchange_side: "bids",
-    input_asset: "ETH",
-    output_asset: "USD",
-    quotes: nil
-  }}
-  iex> Flipay.Exchanges.set_assets(order_book, "ETH", "TWD")
-  {:error, "output asset: unsupported asset type"}
-  iex> Flipay.Exchanges.set_assets(order_book, "TWD", "USD")
-  {:error, "input asset: unsupported asset type"}
+    iex> order_book = %Flipay.Exchanges.OrderBook{}
+    iex> Flipay.Exchanges.set_assets(order_book, "USD", "BTC")
+    {:ok,
+    %Flipay.Exchanges.OrderBook{
+      exchange: nil,
+      exchange_side: "asks",
+      input_asset: "USD",
+      output_asset: "BTC",
+      quotes: nil
+    }}
+    iex> Flipay.Exchanges.set_assets(order_book, "ETH", "USD")
+    {:ok,
+    %Flipay.Exchanges.OrderBook{
+      exchange: nil,
+      exchange_side: "bids",
+      input_asset: "ETH",
+      output_asset: "USD",
+      quotes: nil
+    }}
+    iex> Flipay.Exchanges.set_assets(order_book, "ETH", "TWD")
+    {:error, "output asset: unsupported asset type"}
+    iex> Flipay.Exchanges.set_assets(order_book, "TWD", "USD")
+    {:error, "input asset: unsupported asset type"}
 
   """
   def set_assets(order_book, input_asset, output_asset) do
@@ -223,19 +220,19 @@ defmodule Flipay.Exchanges do
   @doc """
   Get exchange module by exchange name.
 
-  # Examples:
+  ## Examples:
 
-  iex> Flipay.Exchanges.get_exchange("coinbase")
-  {:ok,
-   %Flipay.Exchanges.OrderBook{
-    exchange: Flipay.Exchanges.Coinbase,
-    exchange_side: nil,
-    input_asset: nil,
-    output_asset: nil,
-    quotes: nil
-  }}
-  iex> Flipay.Exchanges.get_exchange("hitbtc")
-  {:error, "not yet implemented"}
+    iex> Flipay.Exchanges.get_exchange("coinbase")
+    {:ok,
+    %Flipay.Exchanges.OrderBook{
+      exchange: Flipay.Exchanges.Coinbase,
+      exchange_side: nil,
+      input_asset: nil,
+      output_asset: nil,
+      quotes: nil
+    }}
+    iex> Flipay.Exchanges.get_exchange("hitbtc")
+    {:error, "not yet implemented"}
 
   """
   def get_exchange(exchange_name) do
