@@ -11,8 +11,8 @@ config :logger, level: :warn
 
 # Configure your database
 config :flipay, Flipay.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "admin",
+  password: "123456",
   database: "flipay_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
