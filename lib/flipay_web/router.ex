@@ -21,5 +21,6 @@ defmodule FlipayWeb.Router do
     pipe_through [:api, :jwt_authenticated]
 
     get "/my_user", UserController, :show
+    get "/quote/:exchange_name", QuoteController, :show
   end
 end

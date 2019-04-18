@@ -8,7 +8,7 @@ defmodule Flipay.Exchanges do
   ## Examples:
 
     iex> input = %{exchange_name: "coinbase", input_asset: "USD", output_asset: "BTC"}
-    iex> order_book = Flipay.Exchanges.get_quotes(input)
+    iex> {:ok, order_book} = Flipay.Exchanges.get_quotes(input)
     iex> {:ok, quote_0} = Enum.fetch(order_book.quotes, 0)
     iex> quote_0.price
     #Decimal<5000>
@@ -21,10 +21,10 @@ defmodule Flipay.Exchanges do
     #Decimal<1>
     iex> input = %{input | exchange_name: "hitbtc"}
     iex> Flipay.Exchanges.get_quotes(input)
-    {:error, "not yet implemented"}
+    {:error, :not_found}
     iex> input = %{input | exchange_name: "coinbase", output_asset: "TWD"}
     iex> Flipay.Exchanges.get_quotes(input)
-    {:error, "output asset: unsupported asset type"}
+    {:error, :unsupported_asset}
 
   """
   def get_quotes(%{
@@ -35,9 +35,7 @@ defmodule Flipay.Exchanges do
     with {:ok, order_book} <- get_exchange(exchange_name),
          {:ok, order_book} <- set_assets(order_book, input_asset, output_asset),
          {:ok, order_book} <- get_order_book(order_book) do
-      order_book
-      |> filter_quotes()
-      |> sort_quotes()
+      {:ok, order_book |> filter_quotes() |> sort_quotes()}
     end
   end
 
@@ -158,36 +156,33 @@ defmodule Flipay.Exchanges do
       quotes: nil
     }}
     iex> Flipay.Exchanges.set_assets(order_book, "ETH", "TWD")
-    {:error, "output asset: unsupported asset type"}
+    {:error, :unsupported_asset}
     iex> Flipay.Exchanges.set_assets(order_book, "TWD", "USD")
-    {:error, "input asset: unsupported asset type"}
+    {:error, :unsupported_asset}
 
   """
   def set_assets(order_book, input_asset, output_asset) do
-    case {get_asset_type(input_asset), get_asset_type(output_asset)} do
-      {:fiat_money, :digital_currency} ->
-        {:ok,
-         %OrderBook{
-           order_book
-           | input_asset: input_asset,
-             output_asset: output_asset,
-             exchange_side: "asks"
-         }}
+    with {:ok, input_asset_type} <- get_asset_type(input_asset),
+         {:ok, output_asset_type} <- get_asset_type(output_asset) do
+      case {input_asset_type, output_asset_type} do
+        {:fiat_money, :digital_currency} ->
+          {:ok,
+           %OrderBook{
+             order_book
+             | input_asset: input_asset,
+               output_asset: output_asset,
+               exchange_side: "asks"
+           }}
 
-      {:digital_currency, :fiat_money} ->
-        {:ok,
-         %OrderBook{
-           order_book
-           | input_asset: input_asset,
-             output_asset: output_asset,
-             exchange_side: "bids"
-         }}
-
-      {{:error, error_msg}, _} ->
-        {:error, "input asset: #{error_msg}"}
-
-      {_, {:error, error_msg}} ->
-        {:error, "output asset: #{error_msg}"}
+        {:digital_currency, :fiat_money} ->
+          {:ok,
+           %OrderBook{
+             order_book
+             | input_asset: input_asset,
+               output_asset: output_asset,
+               exchange_side: "bids"
+           }}
+      end
     end
   end
 
@@ -197,13 +192,13 @@ defmodule Flipay.Exchanges do
   ## Examples
 
     iex> Flipay.Exchanges.get_asset_type("TWD")
-    {:error, "unsupported asset type"}
+    {:error, :unsupported_asset}
 
     iex> Flipay.Exchanges.get_asset_type("USD")
-    :fiat_money
+    {:ok, :fiat_money}
 
     iex(3)> Flipay.Exchanges.get_asset_type("BTC")
-    :digital_currency
+    {:ok, :digital_currency}
 
   """
   def get_asset_type(asset) do
@@ -211,9 +206,9 @@ defmodule Flipay.Exchanges do
     digital_currencies = ["BTC", "ETH"]
 
     cond do
-      Enum.member?(fiat_money, asset) -> :fiat_money
-      Enum.member?(digital_currencies, asset) -> :digital_currency
-      true -> {:error, "unsupported asset type"}
+      Enum.member?(fiat_money, asset) -> {:ok, :fiat_money}
+      Enum.member?(digital_currencies, asset) -> {:ok, :digital_currency}
+      true -> {:error, :unsupported_asset}
     end
   end
 
@@ -232,13 +227,16 @@ defmodule Flipay.Exchanges do
       quotes: nil
     }}
     iex> Flipay.Exchanges.get_exchange("hitbtc")
-    {:error, "not yet implemented"}
+    {:error, :not_found}
 
   """
   def get_exchange(exchange_name) do
     case exchange_name do
-      "coinbase" -> {:ok, %OrderBook{exchange: Flipay.Exchanges.Coinbase}}
-      _ -> {:error, "not yet implemented"}
+      name when name in ["coinbase", "coinbase_pro"] ->
+        {:ok, %OrderBook{exchange: Flipay.Exchanges.Coinbase}}
+
+      _ ->
+        {:error, :not_found}
     end
   end
 end

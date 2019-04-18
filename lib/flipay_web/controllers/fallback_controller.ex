@@ -25,4 +25,28 @@ defmodule FlipayWeb.FallbackController do
     |> put_status(:unauthorized)
     |> json(%{error: "Login failed"})
   end
+
+  def call(conn, {:error, :unsupported_asset}) do
+    conn
+    |> json(%{error: "unsupported asset type"})
+    |> render("error.json")
+  end
+
+  def call(conn, {:error, :no_quotes}) do
+    conn
+    |> json(%{error: "no quotes from exchange"})
+    |> render("error.json")
+  end
+
+  def call(conn, {:error, :not_enough_quotes}) do
+    conn
+    |> json(%{error: "not enough quotes for trading"})
+    |> render("error.json")
+  end
+
+  def call(conn, {:error, :unexpected}) do
+    conn
+    |> json(%{error: "unexpected error"})
+    |> render(:"500")
+  end
 end

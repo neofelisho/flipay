@@ -30,10 +30,10 @@ defmodule Flipay.BestRateFinder do
   """
   def find(%{order_book: order_book, input_amount: input_amount}) do
     cond do
-      Enum.count(order_book.quotes) == 0 -> {:error, "no quotes from exchange"}
+      Enum.count(order_book.quotes) == 0 -> {:error, :no_quotes}
       order_book.exchange_side == "asks" -> buy_best_rate(order_book.quotes, input_amount, 0)
       order_book.exchange_side == "bids" -> sell_best_rate(order_book.quotes, input_amount, 0)
-      true -> {:error, "unexpected exception"}
+      true -> {:error, :unexpected}
     end
   end
 
@@ -52,7 +52,7 @@ defmodule Flipay.BestRateFinder do
     #Decimal<7450.0>
     iex> {:ok, input_size} = Decimal.parse("3.1")
     iex> Flipay.BestRateFinder.sell_best_rate(quotes, input_size, 0)
-    {:error, "not enough orders for trading"}
+    {:error, :not_enough_quotes}
 
   """
   def sell_best_rate(quotes, remain_size, total_amount) do
@@ -66,7 +66,7 @@ defmodule Flipay.BestRateFinder do
         {:ok, Decimal.add(total_amount, Decimal.mult(remain_size, current_quote.price))}
 
       Enum.count(quotes) == 1 ->
-        {:error, "not enough orders for trading"}
+        {:error, :not_enough_quotes}
 
       true ->
         sell_best_rate(
@@ -93,7 +93,7 @@ defmodule Flipay.BestRateFinder do
     iex> size
     #Decimal<2.960784313725490196078431373>
     iex> Flipay.BestRateFinder.buy_best_rate(order_books, 16000, 0)
-    {:error, "not enough orders for trading"}
+    {:error, :not_enough_quotes}
 
   """
   def buy_best_rate(order_books, remain_amount, total_size) do
@@ -110,7 +110,7 @@ defmodule Flipay.BestRateFinder do
         {:ok, Decimal.add(total_size, Decimal.div(remain_amount, current_order.price))}
 
       Enum.count(order_books) == 1 ->
-        {:error, "not enough orders for trading"}
+        {:error, :not_enough_quotes}
 
       true ->
         buy_best_rate(
