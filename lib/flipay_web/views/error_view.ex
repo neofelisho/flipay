@@ -1,4 +1,7 @@
 defmodule FlipayWeb.ErrorView do
+  @moduledoc """
+  View for fallback controller.
+  """
   use FlipayWeb, :view
 
   # If you want to customize a particular status code

@@ -1,4 +1,5 @@
 defmodule FlipayWeb.ChangesetView do
+  @moduledoc false
   use FlipayWeb, :view
 
   @doc """

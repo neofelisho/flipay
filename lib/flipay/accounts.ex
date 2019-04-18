@@ -104,6 +104,16 @@ defmodule Flipay.Accounts do
     User.changeset(user, %{})
   end
 
+  @doc """
+  Sing in by email and password. If success will get {:ok, user_resource},
+  otherwise will get {:error, :unauthorized}.
+
+  ## Examples
+
+      iex> Flipay.Accounts.token_sign_in("hello@world.com", "somePassword")
+      {:ok, token_string, %{user resources from Guardian}}
+
+  """
   def token_sign_in(email, password) do
     case email_password_auth(email, password) do
       {:ok, user} -> Guardian.encode_and_sign(user)

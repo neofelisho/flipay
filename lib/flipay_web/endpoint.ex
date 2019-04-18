@@ -1,4 +1,5 @@
 defmodule FlipayWeb.Endpoint do
+  @moduledoc false
   use Phoenix.Endpoint, otp_app: :flipay
 
   socket "/socket", FlipayWeb.UserSocket,

@@ -1,4 +1,7 @@
 defmodule FlipayWeb.Router do
+  @moduledoc """
+  Routes of Flipay API.
+  """
   use FlipayWeb, :router
   alias FlipayWeb.Authentications
 

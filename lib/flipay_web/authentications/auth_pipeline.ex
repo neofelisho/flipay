@@ -1,4 +1,7 @@
 defmodule FlipayWeb.Authentications.AuthPipeline do
+  @moduledoc """
+  Authentication pipeline.
+  """
   use Guardian.Plug.Pipeline,
     otp_app: :flipay,
     module: Flipay.Guardian,

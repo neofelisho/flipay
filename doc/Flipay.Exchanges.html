@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.20.2">
+    <meta name="project" content="flipay v0.1.0">
+    <title>Flipay.Exchanges — flipay v0.1.0</title>
+    <link rel="stylesheet" href="dist/html-d9f58a6320b5bfa6dd77.css" />
+    <script src="dist/sidebar_items-b3372a0eb8.js"></script>
+      <script src="docs_config.js"></script>
+    <script async src="dist/html-d9f58a6320b5bfa6dd77.js"></script>
+    
+  </head>
+  <body data-type="modules">
+    <script>try { if(localStorage.getItem('night-mode')) document.body.className += ' night-mode'; } catch (e) { }</script>
+    <div class="main">
+
+<button class="sidebar-button sidebar-toggle">
+  <span class="icon-menu" title="Collapse/expand sidebar"></span>
+</button>
+
+<section class="sidebar">
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button">
+      <span class="icon-search" aria-hidden="true"></span>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button">
+      <span class="icon-cross" title="Cancel search"></span>
+    </button>
+    <label class="search-label">
+      <input name="q" type="text" id="search-list" class="search-input" placeholder="Search..." aria-label="Search" autocomplete="off" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectDetails">
+      <a href="api-reference.html" class="sidebar-projectName">
+flipay      </a>
+      <h2 class="sidebar-projectVersion">
+        v0.1.0
+      </h2>
+    </div>
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+
+
+  </ul>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="app-vsn">flipay v0.1.0</small>
+Flipay.Exchanges              </h1>
+
+
+        <section id="moduledoc">
+<p>Get order book from specific exchange, according to input/output assets.</p>
+        </section>
+
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Summary
+          </h1>
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#filter_quotes/1">filter_quotes(order_book)</a>
+  </div>
+    <div class="summary-synopsis"><p>Gets quotes from order books by specific exchange side.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_asset_type/1">get_asset_type(asset)</a>
+  </div>
+    <div class="summary-synopsis"><p>Gets the type of specific asset.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_exchange/1">get_exchange(exchange_name)</a>
+  </div>
+    <div class="summary-synopsis"><p>Get exchange module by exchange name.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_order_book/1">get_order_book(order_book)</a>
+  </div>
+    <div class="summary-synopsis"><p>Get order books from exchange.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_quotes/1">get_quotes(map)</a>
+  </div>
+    <div class="summary-synopsis"><p>Get quotes by specific exchange name and input/output assets.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#set_assets/3">set_assets(order_book, input_asset, output_asset)</a>
+  </div>
+    <div class="summary-synopsis"><p>Sets input/output assets and determine the exchange side.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#sort_quotes/1">sort_quotes(order_book)</a>
+  </div>
+    <div class="summary-synopsis"><p>Sorts the quotes by exchange side to make sure the quotes are sorted from best to worst.</p></div>
+</div>
+  </div>
+        </section>
+
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+Functions          </h1>
+          <div class="functions-list">
+<section class="detail" id="filter_quotes/1">
+    <div class="detail-header">
+    <a href="#filter_quotes/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">filter_quotes(order_book)</span>
+          </div>
+  <section class="docstring">
+<p>Gets quotes from order books by specific exchange side.</p>
+<h2 id="filter_quotes/1-examples" class="section-heading">
+  <a href="#filter_quotes/1-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="3102549472-1">%</span><span class="nc" data-group-id="3102549472-1">Flipay.Exchanges.OrderBook</span><span class="p" data-group-id="3102549472-1">{</span><span class="ss">quotes</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3102549472-2">%{</span><span class="w"> </span><span class="s">&quot;asks&quot;</span><span class="w"> </span><span class="o">=</span><span class="o">&gt;</span><span class="w"> </span><span class="p" data-group-id="3102549472-3">[</span><span class="p" data-group-id="3102549472-4">[</span><span class="s">&quot;5000&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="3102549472-4">]</span><span class="p" data-group-id="3102549472-3">]</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;bids&quot;</span><span class="w"> </span><span class="o">=</span><span class="o">&gt;</span><span class="w"> </span><span class="p" data-group-id="3102549472-5">[</span><span class="p" data-group-id="3102549472-6">[</span><span class="s">&quot;4900&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="p" data-group-id="3102549472-6">]</span><span class="p" data-group-id="3102549472-5">]</span><span class="w"> </span><span class="p" data-group-id="3102549472-2">}</span><span class="p">,</span><span class="w"> </span><span class="ss">exchange_side</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;asks&quot;</span><span class="p" data-group-id="3102549472-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">order_book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Flipay.Exchanges</span><span class="o">.</span><span class="n">filter_quotes</span><span class="p" data-group-id="3102549472-7">(</span><span class="n">input</span><span class="p" data-group-id="3102549472-7">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="3102549472-8">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="k">quote</span><span class="p" data-group-id="3102549472-8">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">fetch</span><span class="p" data-group-id="3102549472-9">(</span><span class="n">order_book</span><span class="o">.</span><span class="n">quotes</span><span class="p">,</span><span class="mi">0</span><span class="p" data-group-id="3102549472-9">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="k">quote</span><span class="o">.</span><span class="n">number_of_order</span><span class="w">
+</span><span class="mi">1</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="k">quote</span><span class="o">.</span><span class="n">price</span><span class="w">
+</span><span class="p" data-group-id="3102549472-10">#</span><span class="nc" data-group-id="3102549472-10">Decimal</span><span class="p" data-group-id="3102549472-10">&lt;</span><span class="mi">5000</span><span class="p" data-group-id="3102549472-10">&gt;</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="k">quote</span><span class="o">.</span><span class="n">size</span><span class="w">
+</span><span class="p" data-group-id="3102549472-11">#</span><span class="nc" data-group-id="3102549472-11">Decimal</span><span class="p" data-group-id="3102549472-11">&lt;</span><span class="mi">2</span><span class="p" data-group-id="3102549472-11">&gt;</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_asset_type/1">
+    <div class="detail-header">
+    <a href="#get_asset_type/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">get_asset_type(asset)</span>
+          </div>
+  <section class="docstring">
+<p>Gets the type of specific asset.</p>
+<h2 id="get_asset_type/1-examples" class="section-heading">
+  <a href="#get_asset_type/1-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">Flipay.Exchanges</span><span class="o">.</span><span class="n">get_asset_type</span><span class="p" data-group-id="3220322079-1">(</span><span class="s">&quot;TWD&quot;</span><span class="p" data-group-id="3220322079-1">)</span><span class="w">
+</span><span class="p" data-group-id="3220322079-2">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:unsupported_asset</span><span class="p" data-group-id="3220322079-2">}</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Flipay.Exchanges</span><span class="o">.</span><span class="n">get_asset_type</span><span class="p" data-group-id="3220322079-3">(</span><span class="s">&quot;USD&quot;</span><span class="p" data-group-id="3220322079-3">)</span><span class="w">
+</span><span class="p" data-group-id="3220322079-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="ss">:fiat_money</span><span class="p" data-group-id="3220322079-4">}</span><span class="w">
+
+</span><span class="gp unselectable">iex(3)&gt; </span><span class="nc">Flipay.Exchanges</span><span class="o">.</span><span class="n">get_asset_type</span><span class="p" data-group-id="3220322079-5">(</span><span class="s">&quot;BTC&quot;</span><span class="p" data-group-id="3220322079-5">)</span><span class="w">
+</span><span class="p" data-group-id="3220322079-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="ss">:digital_currency</span><span class="p" data-group-id="3220322079-6">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_exchange/1">
+    <div class="detail-header">
+    <a href="#get_exchange/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">get_exchange(exchange_name)</span>
+          </div>
+  <section class="docstring">
+<p>Get exchange module by exchange name.</p>
+<h2 id="get_exchange/1-examples" class="section-heading">
+  <a href="#get_exchange/1-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples:
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">Flipay.Exchanges</span><span class="o">.</span><span class="n">get_exchange</span><span class="p" data-group-id="2333295894-1">(</span><span class="s">&quot;coinbase&quot;</span><span class="p" data-group-id="2333295894-1">)</span><span class="w">
+</span><span class="p" data-group-id="2333295894-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w">
+</span><span class="p" data-group-id="2333295894-3">%</span><span class="nc" data-group-id="2333295894-3">Flipay.Exchanges.OrderBook</span><span class="p" data-group-id="2333295894-3">{</span><span class="w">
+  </span><span class="ss">exchange</span><span class="p">:</span><span class="w"> </span><span class="nc">Flipay.Exchanges.Coinbase</span><span class="p">,</span><span class="w">
+  </span><span class="ss">exchange_side</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w">
+  </span><span class="ss">input_asset</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w">
+  </span><span class="ss">output_asset</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w">
+  </span><span class="ss">quotes</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="w">
+</span><span class="p" data-group-id="2333295894-3">}</span><span class="p" data-group-id="2333295894-2">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Flipay.Exchanges</span><span class="o">.</span><span class="n">get_exchange</span><span class="p" data-group-id="2333295894-4">(</span><span class="s">&quot;hitbtc&quot;</span><span class="p" data-group-id="2333295894-4">)</span><span class="w">
+</span><span class="p" data-group-id="2333295894-5">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:not_found</span><span class="p" data-group-id="2333295894-5">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_order_book/1">
+    <div class="detail-header">
+    <a href="#get_order_book/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">get_order_book(order_book)</span>
+          </div>
+  <section class="docstring">
+<p>Get order books from exchange.</p>
+<h2 id="get_order_book/1-examples" class="section-heading">
+  <a href="#get_order_book/1-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples:
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">order_book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="7731688402-1">%</span><span class="nc" data-group-id="7731688402-1">Flipay.Exchanges.OrderBook</span><span class="p" data-group-id="7731688402-1">{</span><span class="ss">exchange</span><span class="p">:</span><span class="w"> </span><span class="nc">Flipay.Exchanges.Coinbase</span><span class="p">,</span><span class="w"> </span><span class="ss">input_asset</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;USD&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">output_asset</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BTC&quot;</span><span class="p" data-group-id="7731688402-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="7731688402-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">order_book</span><span class="p" data-group-id="7731688402-2">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Flipay.Exchanges</span><span class="o">.</span><span class="n">get_order_book</span><span class="p" data-group-id="7731688402-3">(</span><span class="n">order_book</span><span class="p" data-group-id="7731688402-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">order_book</span><span class="w">
+</span><span class="p" data-group-id="7731688402-4">%</span><span class="nc" data-group-id="7731688402-4">Flipay.Exchanges.OrderBook</span><span class="p" data-group-id="7731688402-4">{</span><span class="w">
+  </span><span class="ss">exchange</span><span class="p">:</span><span class="w"> </span><span class="nc">Flipay.Exchanges.Coinbase</span><span class="p">,</span><span class="w">
+  </span><span class="ss">exchange_side</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w">
+  </span><span class="ss">input_asset</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;USD&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">output_asset</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BTC&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">quotes</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7731688402-5">%{</span><span class="w">
+    </span><span class="s">&quot;asks&quot;</span><span class="w"> </span><span class="o">=</span><span class="o">&gt;</span><span class="w"> </span><span class="p" data-group-id="7731688402-6">[</span><span class="p" data-group-id="7731688402-7">[</span><span class="s">&quot;5000&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="7731688402-7">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7731688402-8">[</span><span class="s">&quot;6000&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="7731688402-8">]</span><span class="p" data-group-id="7731688402-6">]</span><span class="p">,</span><span class="w">
+    </span><span class="s">&quot;bids&quot;</span><span class="w"> </span><span class="o">=</span><span class="o">&gt;</span><span class="w"> </span><span class="p" data-group-id="7731688402-9">[</span><span class="p" data-group-id="7731688402-10">[</span><span class="s">&quot;4000&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="7731688402-10">]</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7731688402-11">[</span><span class="s">&quot;3900&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="7731688402-11">]</span><span class="p" data-group-id="7731688402-9">]</span><span class="w">
+  </span><span class="p" data-group-id="7731688402-5">}</span><span class="w">
+</span><span class="p" data-group-id="7731688402-4">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="get_quotes/1">
+    <div class="detail-header">
+    <a href="#get_quotes/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">get_quotes(map)</span>
+          </div>
+  <section class="docstring">
+<p>Get quotes by specific exchange name and input/output assets.</p>
+<h2 id="get_quotes/1-examples" class="section-heading">
+  <a href="#get_quotes/1-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples:
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="5022384138-1">%{</span><span class="ss">exchange_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;coinbase&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">input_asset</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;USD&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">output_asset</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BTC&quot;</span><span class="p" data-group-id="5022384138-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="5022384138-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">order_book</span><span class="p" data-group-id="5022384138-2">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Flipay.Exchanges</span><span class="o">.</span><span class="n">get_quotes</span><span class="p" data-group-id="5022384138-3">(</span><span class="n">input</span><span class="p" data-group-id="5022384138-3">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="5022384138-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">quote_0</span><span class="p" data-group-id="5022384138-4">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">fetch</span><span class="p" data-group-id="5022384138-5">(</span><span class="n">order_book</span><span class="o">.</span><span class="n">quotes</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p" data-group-id="5022384138-5">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">quote_0</span><span class="o">.</span><span class="n">price</span><span class="w">
+</span><span class="p" data-group-id="5022384138-6">#</span><span class="nc" data-group-id="5022384138-6">Decimal</span><span class="p" data-group-id="5022384138-6">&lt;</span><span class="mi">5000</span><span class="p" data-group-id="5022384138-6">&gt;</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">quote_0</span><span class="o">.</span><span class="n">size</span><span class="w">
+</span><span class="p" data-group-id="5022384138-7">#</span><span class="nc" data-group-id="5022384138-7">Decimal</span><span class="p" data-group-id="5022384138-7">&lt;</span><span class="mi">2</span><span class="p" data-group-id="5022384138-7">&gt;</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="p" data-group-id="5022384138-8">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">quote_1</span><span class="p" data-group-id="5022384138-8">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">fetch</span><span class="p" data-group-id="5022384138-9">(</span><span class="n">order_book</span><span class="o">.</span><span class="n">quotes</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="5022384138-9">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">quote_1</span><span class="o">.</span><span class="n">price</span><span class="w">
+</span><span class="p" data-group-id="5022384138-10">#</span><span class="nc" data-group-id="5022384138-10">Decimal</span><span class="p" data-group-id="5022384138-10">&lt;</span><span class="mi">6000</span><span class="p" data-group-id="5022384138-10">&gt;</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">quote_1</span><span class="o">.</span><span class="n">size</span><span class="w">
+</span><span class="p" data-group-id="5022384138-11">#</span><span class="nc" data-group-id="5022384138-11">Decimal</span><span class="p" data-group-id="5022384138-11">&lt;</span><span class="mi">1</span><span class="p" data-group-id="5022384138-11">&gt;</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="5022384138-12">%{</span><span class="n">input</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="ss">exchange_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;hitbtc&quot;</span><span class="p" data-group-id="5022384138-12">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Flipay.Exchanges</span><span class="o">.</span><span class="n">get_quotes</span><span class="p" data-group-id="5022384138-13">(</span><span class="n">input</span><span class="p" data-group-id="5022384138-13">)</span><span class="w">
+</span><span class="p" data-group-id="5022384138-14">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:not_found</span><span class="p" data-group-id="5022384138-14">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="5022384138-15">%{</span><span class="n">input</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="ss">exchange_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;coinbase&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">output_asset</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TWD&quot;</span><span class="p" data-group-id="5022384138-15">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Flipay.Exchanges</span><span class="o">.</span><span class="n">get_quotes</span><span class="p" data-group-id="5022384138-16">(</span><span class="n">input</span><span class="p" data-group-id="5022384138-16">)</span><span class="w">
+</span><span class="p" data-group-id="5022384138-17">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:unsupported_asset</span><span class="p" data-group-id="5022384138-17">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="set_assets/3">
+    <div class="detail-header">
+    <a href="#set_assets/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">set_assets(order_book, input_asset, output_asset)</span>
+          </div>
+  <section class="docstring">
+<p>Sets input/output assets and determine the exchange side.</p>
+<h2 id="set_assets/3-examples" class="section-heading">
+  <a href="#set_assets/3-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples:
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">order_book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="2115799549-1">%</span><span class="nc" data-group-id="2115799549-1">Flipay.Exchanges.OrderBook</span><span class="p" data-group-id="2115799549-1">{</span><span class="p" data-group-id="2115799549-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Flipay.Exchanges</span><span class="o">.</span><span class="n">set_assets</span><span class="p" data-group-id="2115799549-2">(</span><span class="n">order_book</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;USD&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;BTC&quot;</span><span class="p" data-group-id="2115799549-2">)</span><span class="w">
+</span><span class="p" data-group-id="2115799549-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w">
+</span><span class="p" data-group-id="2115799549-4">%</span><span class="nc" data-group-id="2115799549-4">Flipay.Exchanges.OrderBook</span><span class="p" data-group-id="2115799549-4">{</span><span class="w">
+  </span><span class="ss">exchange</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w">
+  </span><span class="ss">exchange_side</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;asks&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">input_asset</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;USD&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">output_asset</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BTC&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">quotes</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="w">
+</span><span class="p" data-group-id="2115799549-4">}</span><span class="p" data-group-id="2115799549-3">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Flipay.Exchanges</span><span class="o">.</span><span class="n">set_assets</span><span class="p" data-group-id="2115799549-5">(</span><span class="n">order_book</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ETH&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;USD&quot;</span><span class="p" data-group-id="2115799549-5">)</span><span class="w">
+</span><span class="p" data-group-id="2115799549-6">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w">
+</span><span class="p" data-group-id="2115799549-7">%</span><span class="nc" data-group-id="2115799549-7">Flipay.Exchanges.OrderBook</span><span class="p" data-group-id="2115799549-7">{</span><span class="w">
+  </span><span class="ss">exchange</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w">
+  </span><span class="ss">exchange_side</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;bids&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">input_asset</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ETH&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">output_asset</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;USD&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">quotes</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="w">
+</span><span class="p" data-group-id="2115799549-7">}</span><span class="p" data-group-id="2115799549-6">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Flipay.Exchanges</span><span class="o">.</span><span class="n">set_assets</span><span class="p" data-group-id="2115799549-8">(</span><span class="n">order_book</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ETH&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;TWD&quot;</span><span class="p" data-group-id="2115799549-8">)</span><span class="w">
+</span><span class="p" data-group-id="2115799549-9">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:unsupported_asset</span><span class="p" data-group-id="2115799549-9">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Flipay.Exchanges</span><span class="o">.</span><span class="n">set_assets</span><span class="p" data-group-id="2115799549-10">(</span><span class="n">order_book</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;TWD&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;USD&quot;</span><span class="p" data-group-id="2115799549-10">)</span><span class="w">
+</span><span class="p" data-group-id="2115799549-11">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="ss">:unsupported_asset</span><span class="p" data-group-id="2115799549-11">}</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="sort_quotes/1">
+    <div class="detail-header">
+    <a href="#sort_quotes/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">sort_quotes(order_book)</span>
+          </div>
+  <section class="docstring">
+<p>Sorts the quotes by exchange side to make sure the quotes are sorted from best to worst.</p>
+<h2 id="sort_quotes/1-examples" class="section-heading">
+  <a href="#sort_quotes/1-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples:
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">order_book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="3483159766-1">%</span><span class="nc" data-group-id="3483159766-1">Flipay.Exchanges.OrderBook</span><span class="p" data-group-id="3483159766-1">{</span><span class="ss">quotes</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3483159766-2">[</span><span class="p" data-group-id="3483159766-3">%{</span><span class="ss">price</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p" data-group-id="3483159766-3">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3483159766-4">%{</span><span class="ss">price</span><span class="p">:</span><span class="w"> </span><span class="mi">4900</span><span class="p" data-group-id="3483159766-4">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3483159766-5">%{</span><span class="ss">price</span><span class="p">:</span><span class="w"> </span><span class="mi">5100</span><span class="p" data-group-id="3483159766-5">}</span><span class="p" data-group-id="3483159766-2">]</span><span class="p">,</span><span class="w"> </span><span class="ss">exchange_side</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;asks&quot;</span><span class="p" data-group-id="3483159766-1">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Flipay.Exchanges</span><span class="o">.</span><span class="n">sort_quotes</span><span class="p" data-group-id="3483159766-6">(</span><span class="n">order_book</span><span class="p" data-group-id="3483159766-6">)</span><span class="w">
+</span><span class="p" data-group-id="3483159766-7">%</span><span class="nc" data-group-id="3483159766-7">Flipay.Exchanges.OrderBook</span><span class="p" data-group-id="3483159766-7">{</span><span class="w">
+  </span><span class="ss">exchange</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w">
+  </span><span class="ss">exchange_side</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;asks&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">input_asset</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w">
+  </span><span class="ss">output_asset</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w">
+  </span><span class="ss">quotes</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3483159766-8">[</span><span class="p" data-group-id="3483159766-9">%{</span><span class="ss">price</span><span class="p">:</span><span class="w"> </span><span class="mi">4900</span><span class="p" data-group-id="3483159766-9">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3483159766-10">%{</span><span class="ss">price</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p" data-group-id="3483159766-10">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3483159766-11">%{</span><span class="ss">price</span><span class="p">:</span><span class="w"> </span><span class="mi">5100</span><span class="p" data-group-id="3483159766-11">}</span><span class="p" data-group-id="3483159766-8">]</span><span class="w">
+</span><span class="p" data-group-id="3483159766-7">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">order_book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="3483159766-12">%</span><span class="nc" data-group-id="3483159766-12">Flipay.Exchanges.OrderBook</span><span class="p" data-group-id="3483159766-12">{</span><span class="n">order_book</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="ss">exchange_side</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;bids&quot;</span><span class="p" data-group-id="3483159766-12">}</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">Flipay.Exchanges</span><span class="o">.</span><span class="n">sort_quotes</span><span class="p" data-group-id="3483159766-13">(</span><span class="n">order_book</span><span class="p" data-group-id="3483159766-13">)</span><span class="w">
+</span><span class="p" data-group-id="3483159766-14">%</span><span class="nc" data-group-id="3483159766-14">Flipay.Exchanges.OrderBook</span><span class="p" data-group-id="3483159766-14">{</span><span class="w">
+  </span><span class="ss">exchange</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w">
+  </span><span class="ss">exchange_side</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;bids&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">input_asset</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w">
+  </span><span class="ss">output_asset</span><span class="p">:</span><span class="w"> </span><span class="no">nil</span><span class="p">,</span><span class="w">
+  </span><span class="ss">quotes</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3483159766-15">[</span><span class="p" data-group-id="3483159766-16">%{</span><span class="ss">price</span><span class="p">:</span><span class="w"> </span><span class="mi">5100</span><span class="p" data-group-id="3483159766-16">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3483159766-17">%{</span><span class="ss">price</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p" data-group-id="3483159766-17">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3483159766-18">%{</span><span class="ss">price</span><span class="p">:</span><span class="w"> </span><span class="mi">4900</span><span class="p" data-group-id="3483159766-18">}</span><span class="p" data-group-id="3483159766-15">]</span><span class="w">
+</span><span class="p" data-group-id="3483159766-14">}</span></code></pre>
+  </section>
+</section>
+          </div>
+        </section>
+          <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.20.2),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+        </p>
+        <p>
+          <button class="line footer-button night-mode-toggle">
+            Toggle night mode
+          </button>
+          <button class="line footer-button display-shortcuts-help">
+            Display keyboard shortcuts
+          </button>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  
+  </body>
+</html>
+

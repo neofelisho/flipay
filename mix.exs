@@ -45,7 +45,8 @@ defmodule Flipay.MixProject do
       {:bcrypt_elixir, "~> 1.0"},
       {:guardian, "~> 1.2"},
       {:decimal, "~> 1.0"},
-      {:mock, "~> 0.3.3"}
+      {:mock, "~> 0.3.3"},
+      {:ex_doc, "~> 0.20.2"}
     ]
   end
 

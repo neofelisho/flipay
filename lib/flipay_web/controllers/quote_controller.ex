@@ -1,4 +1,7 @@
 defmodule FlipayWeb.QuoteController do
+  @moduledoc """
+  Handle request about asset quotes.
+  """
   use FlipayWeb, :controller
 
   alias Flipay.Exchanges
@@ -6,6 +9,9 @@ defmodule FlipayWeb.QuoteController do
 
   action_fallback FlipayWeb.FallbackController
 
+  @doc """
+  Calculate best rate according to input/output assets, input amount and specific exchange.
+  """
   def show(
         %Plug.Conn{
           query_params: %{
