@@ -20,6 +20,7 @@ defmodule FlipayWeb.FallbackController do
     |> render(:"404")
   end
 
+  # TODO: ErrorView
   def call(conn, {:error, :unauthorized}) do
     conn
     |> put_status(:unauthorized)
@@ -28,25 +29,25 @@ defmodule FlipayWeb.FallbackController do
 
   def call(conn, {:error, :unsupported_asset}) do
     conn
+    |> put_status(:bad_request)
     |> json(%{error: "unsupported asset type"})
-    |> render("error.json")
   end
 
   def call(conn, {:error, :no_quotes}) do
     conn
+    |> put_status(:ok)
     |> json(%{error: "no quotes from exchange"})
-    |> render("error.json")
   end
 
   def call(conn, {:error, :not_enough_quotes}) do
     conn
+    |> put_status(:ok)
     |> json(%{error: "not enough quotes for trading"})
-    |> render("error.json")
   end
 
   def call(conn, {:error, :unexpected}) do
     conn
+    |> put_status(:internal_server_error)
     |> json(%{error: "unexpected error"})
-    |> render(:"500")
   end
 end

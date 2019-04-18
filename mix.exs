@@ -44,7 +44,8 @@ defmodule Flipay.MixProject do
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 1.0"},
       {:guardian, "~> 1.2"},
-      {:decimal, "~> 1.0"}
+      {:decimal, "~> 1.0"},
+      {:mock, "~> 0.3.3"}
     ]
   end
 

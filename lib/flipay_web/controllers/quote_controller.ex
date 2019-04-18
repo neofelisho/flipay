@@ -1,7 +1,6 @@
 defmodule FlipayWeb.QuoteController do
   use FlipayWeb, :controller
 
-  # alias Flipay.Guardian
   alias Flipay.Exchanges
   alias Flipay.BestRateFinder
 
