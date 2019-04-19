@@ -52,5 +52,5 @@ config :flipay, Flipay.Repo,
   username: "admin",
   password: "123456",
   database: "flipay_dev",
-  hostname: "localhost",
+  hostname: "postgres",
   pool_size: 10
