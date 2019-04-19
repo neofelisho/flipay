@@ -51,7 +51,7 @@ Otherwise, please reference section [Setup without Docker](#setup-without-docker
 
     Now we can test it in browser by [http://localhost:4000/](http://localhost:4000/), and we can see this:
 
-    ![001](https://github.com/neofelisho/flipay/tree/master/static/img/001.PNG)
+    ![001](https://github.com/neofelisho/flipay/blob/master/static/img/001.PNG)
 
 3. This docker-compose file also bring a database management tool for [PostgreSQL](https://www.postgresql.org/): [pgAdmin 4](https://www.pgadmin.org/). We could access this tool by browsing [http://localhost/](http://localhost/). We can modify the login user name, password and exposing port in the `docker-compose.yml` file.
 
