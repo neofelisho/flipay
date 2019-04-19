@@ -101,7 +101,7 @@ Otherwise, please reference section [Setup without Docker](#setup-without-docker
 
     We can also test it by browsing [http://localhost:4000/](http://localhost:4000/), and we should get the same result with docker setup:
 
-    ![001](https://github.com/neofelisho/flipay/tree/master/static/img/001.PNG)
+    ![001](https://github.com/neofelisho/flipay/blob/master/static/img/001.PNG)
     
 ## Usage
 
