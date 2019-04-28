@@ -1,5 +1,5 @@
 defmodule Flipay.Exchanges.Coinbase.OrderBook do
-  @doc """
+  @moduledoc """
   Keep order book from Coinbase.
   """
   use Agent
