@@ -1,4 +1,4 @@
-FROM elixir:1.8.1
+FROM elixir:latest
 
 RUN mix local.hex --force \
  && mix archive.install --force hex phx_new 1.4.3 \
