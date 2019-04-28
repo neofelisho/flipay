@@ -24,28 +24,15 @@ defmodule FlipayWeb.QuoteControllerTest do
   end
 
   describe "show best rate" do
-    test "unauthenticated user", %{conn: conn} do
+    test "for unauthenticated user", %{conn: conn} do
       conn = get(conn, Routes.quote_path(conn, :show, @coinbase))
       assert conn.status == 401
       assert conn.resp_body == "{\"error\":\"unauthenticated\"}"
     end
 
-    test "best buying rate from coinbase", %{conn: conn} do
+    test "for buying from coinbase", %{conn: conn} do
       with_mock Flipay.Exchanges.Coinbase,
-        get_order_book: fn _, _ ->
-          {:ok, ~s(
-            {
-              "bids": [
-                ["2000", "10", "1"],
-                ["1900", "1", "1"]
-              ],
-              "asks": [
-                ["2000", "2", "1"],
-                ["2100", "1", "1"]
-              ]
-            }
-          )}
-        end do
+        get_order_book: fn _, _ -> {:ok, %{"2000" => "2", "2100" => "1"}} end do
         conn_login = login(conn)
 
         conn_login =
@@ -58,27 +45,15 @@ defmodule FlipayWeb.QuoteControllerTest do
             )
           )
 
-        assert %{"best_rate" => best_rate} = json_response(conn_login, 200)
-        assert Decimal.equal?(best_rate, "2.5")
+        assert %{"data" => actual_data, "timestamp" => _} = json_response(conn_login, 200)
+        assert actual_data["output_asset"] == "BTC"
+        assert Decimal.equal?(actual_data["output_amount"], "2.5")
       end
     end
 
-    test "best selling rate from coinbase_pro", %{conn: conn} do
+    test "for selling via coinbase_pro", %{conn: conn} do
       with_mock Flipay.Exchanges.Coinbase,
-        get_order_book: fn _, _ ->
-          {:ok, ~s(
-            {
-              "bids": [
-                ["2000", "5", "1"],
-                ["1900", "10", "1"]
-              ],
-              "asks": [
-                ["2000", "2", "1"],
-                ["2100", "1", "1"]
-              ]
-            }
-          )}
-        end do
+        get_order_book: fn _, _ -> {:ok, %{"2000" => "5", "1900" => "10"}} end do
         conn_login = login(conn)
 
         conn_login =
@@ -91,12 +66,13 @@ defmodule FlipayWeb.QuoteControllerTest do
             )
           )
 
-        assert %{"best_rate" => best_rate} = json_response(conn_login, 200)
-        assert Decimal.equal?(best_rate, "17410")
+        assert %{"data" => actual_data, "timestamp" => _} = json_response(conn_login, 200)
+        assert actual_data["output_asset"] == "USD"
+        assert Decimal.equal?(actual_data["output_amount"], "17410")
       end
     end
 
-    test "unimplemented hitbtc exchange", %{conn: conn} do
+    test "for unimplemented exchange", %{conn: conn} do
       conn_login = login(conn)
 
       conn_login =
@@ -112,22 +88,9 @@ defmodule FlipayWeb.QuoteControllerTest do
       assert %{"detail" => "Not Found"} = json_response(conn_login, 404)["errors"]
     end
 
-    test "input amount over quotes", %{conn: conn} do
+    test "for input amount over quotes from exchange", %{conn: conn} do
       with_mock Flipay.Exchanges.Coinbase,
-        get_order_book: fn _, _ ->
-          {:ok, ~s(
-            {
-              "bids": [
-                ["2000", "10", "1"],
-                ["1900", "1", "1"]
-              ],
-              "asks": [
-                ["2000", "2", "1"],
-                ["2100", "1", "1"]
-              ]
-            }
-          )}
-        end do
+        get_order_book: fn _, _ -> {:ok, %{"2000" => "5", "1900" => "10"}} end do
         conn_login = login(conn)
 
         conn_login =
@@ -135,7 +98,7 @@ defmodule FlipayWeb.QuoteControllerTest do
             conn_login,
             Routes.quote_path(conn, :show, @coinbase_pro,
               input_asset: "BTC",
-              input_amount: "12",
+              input_amount: "16",
               output_asset: "USD"
             )
           )
@@ -145,16 +108,9 @@ defmodule FlipayWeb.QuoteControllerTest do
       end
     end
 
-    test "no quotes from exchange", %{conn: conn} do
+    test "for no quote from exchange", %{conn: conn} do
       with_mock Flipay.Exchanges.Coinbase,
-        get_order_book: fn _, _ ->
-          {:ok, ~s(
-            {
-              "bids": [],
-              "asks": []
-            }
-          )}
-        end do
+        get_order_book: fn _, _ -> {:ok, %{}} end do
         conn_login = login(conn)
 
         conn_login =
@@ -172,7 +128,7 @@ defmodule FlipayWeb.QuoteControllerTest do
       end
     end
 
-    test "unsupported asset type", %{conn: conn} do
+    test "for unsupported asset type", %{conn: conn} do
       conn_login = login(conn)
 
       conn_login =
@@ -189,7 +145,7 @@ defmodule FlipayWeb.QuoteControllerTest do
       assert reason == "unsupported asset type"
     end
 
-    test "unexpected excpetion", %{conn: conn} do
+    test "for unexpected excpetion", %{conn: conn} do
       with_mock Flipay.BestRateFinder, find: fn _ -> {:error, :unexpected} end do
         conn_login = login(conn)
 

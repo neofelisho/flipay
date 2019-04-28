@@ -14,5 +14,5 @@ config :flipay, Flipay.Repo,
   username: "admin",
   password: "123456",
   database: "flipay_test",
-  hostname: "localhost",
+  hostname: "127.0.0.1",
   pool: Ecto.Adapters.SQL.Sandbox

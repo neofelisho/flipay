@@ -21,7 +21,7 @@ defmodule FlipayWeb.UserControllerTest do
   end
 
   describe "create user" do
-    test "renders user when data is valid", %{conn: conn} do
+    test "for renders user when data is valid", %{conn: conn} do
       conn_create = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
       assert %{"jwt" => jwt} = json_response(conn_create, 200)
 
@@ -44,7 +44,7 @@ defmodule FlipayWeb.UserControllerTest do
       assert email == @sign_in_attrs.email
     end
 
-    test "renders errors when data is invalid", %{conn: conn} do
+    test "for renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
