@@ -31,7 +31,7 @@ defmodule FlipayWeb.QuoteController do
          {:ok, input_amount} <- Decimal.parse(input_amount_string),
          {:ok, result} <-
            BestRateFinder.find(%{order_book: order_book, input_amount: input_amount}) do
-      render(conn, "show.json", best_rate: result)
+      render(conn, "show.json", data: %{output_amount: result, output_asset: output_asset})
     end
   end
 end

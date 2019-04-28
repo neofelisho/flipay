@@ -7,7 +7,7 @@ defmodule FlipayWeb.QuoteView do
   @doc """
   Render success message.
   """
-  def render("show.json", %{best_rate: best_rate}) do
-    %{best_rate: best_rate}
+  def render("show.json", %{data: data}) do
+    %{data: data, timestamp: DateTime.to_unix(DateTime.utc_now(), :millisecond)}
   end
 end
