@@ -8,7 +8,7 @@
     <meta name="project" content="flipay v0.1.0">
     <title>Flipay.Exchanges.Coinbase — flipay v0.1.0</title>
     <link rel="stylesheet" href="dist/html-d9f58a6320b5bfa6dd77.css" />
-    <script src="dist/sidebar_items-b3372a0eb8.js"></script>
+    <script src="dist/sidebar_items-6964aa3e87.js"></script>
       <script src="docs_config.js"></script>
     <script async src="dist/html-d9f58a6320b5bfa6dd77.js"></script>
     
@@ -89,7 +89,7 @@ Currently here is a mock version.</p>
     </h2>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#get_order_book/2">get_order_book(input_asset, output_asset)</a>
+    <a href="#get_order_book/2">get_order_book(asset, exchange_side)</a>
   </div>
     <div class="summary-synopsis"><p>Get order book according to input/output assets.</p></div>
 </div>
@@ -110,7 +110,7 @@ Functions          </h1>
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature">get_order_book(input_asset, output_asset)</span>
+    <h1 class="signature">get_order_book(asset, exchange_side)</span>
           </div>
   <section class="docstring">
 <p>Get order book according to input/output assets.</p>
@@ -119,19 +119,8 @@ Functions          </h1>
   Examples:
 </h2>
 
-<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">get_order_book</span><span class="p" data-group-id="1299187545-1">(</span><span class="s">&quot;USD&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;BTC&quot;</span><span class="p" data-group-id="1299187545-1">)</span><span class="w">
-</span><span class="p" data-group-id="1299187545-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="s">~s(
-  {
-    &quot;bids&quot;: [
-      [&quot;4000&quot;, &quot;10&quot;, &quot;1&quot;],
-      [&quot;3900&quot;, &quot;1&quot;, &quot;1&quot;]
-    ],
-    &quot;asks&quot;: [
-      [&quot;5000&quot;, &quot;2&quot;, &quot;1&quot;],
-      [&quot;6000&quot;, &quot;1&quot;, &quot;1&quot;]
-    ]
-  }
-)</span><span class="p" data-group-id="1299187545-2">}</span></code></pre>
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">get_order_book</span><span class="p" data-group-id="5559197432-1">(</span><span class="s">&quot;BTC-USD&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;asks&quot;</span><span class="p" data-group-id="5559197432-1">)</span><span class="w">
+</span><span class="err">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5559197432-2">%{</span><span class="s">&quot;5000&quot;</span><span class="w"> </span><span class="o">=</span><span class="o">&gt;</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;6000&quot;</span><span class="w"> </span><span class="o">=</span><span class="o">&gt;</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p" data-group-id="5559197432-2">}</span></code></pre>
   </section>
 </section>
           </div>

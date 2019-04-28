@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.20.2">
     <meta name="project" content="flipay v0.1.0">
-    <title>Flipay.Exchanges.Exchange — flipay v0.1.0</title>
+    <title>Flipay.Exchanges.Coinbase.Client — flipay v0.1.0</title>
     <link rel="stylesheet" href="dist/html-d9f58a6320b5bfa6dd77.css" />
     <script src="dist/sidebar_items-6964aa3e87.js"></script>
       <script src="docs_config.js"></script>
@@ -67,11 +67,12 @@ flipay      </a>
 
       <h1>
         <small class="app-vsn">flipay v0.1.0</small>
-Flipay.Exchanges.Exchange <small>behaviour</small>              </h1>
+Flipay.Exchanges.Coinbase.Client              </h1>
 
 
         <section id="moduledoc">
-<p>Defint the behaviors that each implementation of exchange should have.</p>
+<p>WebSocket client for <a href="https://www.coinbase.com/">Coinbase</a>.
+Reference the <a href="https://docs.pro.coinbase.com/#websocket-feed">documentation</a> of Coinbase Pro.</p>
         </section>
 
         <section id="summary" class="details-list">
@@ -82,43 +83,37 @@ Flipay.Exchanges.Exchange <small>behaviour</small>              </h1>
             </a>
             Summary
           </h1>
-  <div class="summary-callbacks summary">
+  <div class="summary-functions summary">
     <h2>
-      <a href="#callbacks">Callbacks</a>
+      <a href="#functions">Functions</a>
     </h2>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#c:get_order_book/2">get_order_book(arg1, arg2)</a>
+    <a href="#start_link/1">start_link(products)</a>
   </div>
-    <div class="summary-synopsis"><p>Get order book by specific asset and exchange_side.
-If success returns {:ok, order_book}, otherwise returns {:error, reason}.</p></div>
+    <div class="summary-synopsis"><p>Start WebSocket client.</p></div>
 </div>
   </div>
         </section>
 
-        <section id="callbacks" class="details-list">
+        <section id="functions" class="details-list">
           <h1 class="section-heading">
-            <a class="hover-link" href="#callbacks">
+            <a class="hover-link" href="#functions">
               <span class="icon-link" aria-hidden="true"></span>
               <span class="sr-only">Link to this section</span>
             </a>
-Callbacks          </h1>
-          <div class="callbacks-list">
-<section class="detail" id="c:get_order_book/2">
+Functions          </h1>
+          <div class="functions-list">
+<section class="detail" id="start_link/1">
     <div class="detail-header">
-    <a href="#c:get_order_book/2" class="detail-link" title="Link to this callback">
+    <a href="#start_link/1" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this callback</span>
+      <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature">get_order_book(arg1, arg2)</span>
-        
-      <div class="specs">
-          <pre>get_order_book(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}</pre>
-      </div>
-  </div>
+    <h1 class="signature">start_link(products)</span>
+          </div>
   <section class="docstring">
-<p>Get order book by specific asset and exchange_side.
-If success returns {:ok, order_book}, otherwise returns {:error, reason}.</p>
+<p>Start WebSocket client.</p>
   </section>
 </section>
           </div>

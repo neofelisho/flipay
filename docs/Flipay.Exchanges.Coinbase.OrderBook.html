@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.20.2">
     <meta name="project" content="flipay v0.1.0">
-    <title>FlipayWeb.Authentications.AuthErrorHandler — flipay v0.1.0</title>
+    <title>Flipay.Exchanges.Coinbase.OrderBook — flipay v0.1.0</title>
     <link rel="stylesheet" href="dist/html-d9f58a6320b5bfa6dd77.css" />
     <script src="dist/sidebar_items-6964aa3e87.js"></script>
       <script src="docs_config.js"></script>
@@ -67,12 +67,9 @@ flipay      </a>
 
       <h1>
         <small class="app-vsn">flipay v0.1.0</small>
-FlipayWeb.Authentications.AuthErrorHandler              </h1>
+Flipay.Exchanges.Coinbase.OrderBook              </h1>
 
 
-        <section id="moduledoc">
-<p>Authentication error handler.</p>
-        </section>
 
         <section id="summary" class="details-list">
           <h1 class="section-heading">
@@ -88,9 +85,39 @@ FlipayWeb.Authentications.AuthErrorHandler              </h1>
     </h2>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#auth_error/3">auth_error(conn, arg, opts)</a>
+    <a href="#child_spec/1">child_spec(arg)</a>
   </div>
-    <div class="summary-synopsis"><p>Process authentication error.</p></div>
+    <div class="summary-synopsis"><p>Keep order book from Coinbase.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#dispose/0">dispose()</a>
+  </div>
+    <div class="summary-synopsis"><p>Stop this agent.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get/2">get(asset, side)</a>
+  </div>
+    <div class="summary-synopsis"><p>Get market data by specific asset and exchange side.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#start_link/1">start_link(list)</a>
+  </div>
+    <div class="summary-synopsis"><p>Start a agent to keep state, here is the order book from Coinbase.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#update_level/1">update_level(level)</a>
+  </div>
+    <div class="summary-synopsis"><p>Update changes by given asset, side and price.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#update_snapshot/1">update_snapshot(snapshot)</a>
+  </div>
+    <div class="summary-synopsis"><p>Update market data with new snapshot (discard old data).</p></div>
 </div>
   </div>
         </section>
@@ -103,16 +130,76 @@ FlipayWeb.Authentications.AuthErrorHandler              </h1>
             </a>
 Functions          </h1>
           <div class="functions-list">
-<section class="detail" id="auth_error/3">
+<section class="detail" id="child_spec/1">
     <div class="detail-header">
-    <a href="#auth_error/3" class="detail-link" title="Link to this function">
+    <a href="#child_spec/1" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature">auth_error(conn, arg, opts)</span>
+    <h1 class="signature">child_spec(arg)</span>
           </div>
   <section class="docstring">
-<p>Process authentication error.</p>
+<p>Keep order book from Coinbase.</p>
+  </section>
+</section>
+<section class="detail" id="dispose/0">
+    <div class="detail-header">
+    <a href="#dispose/0" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">dispose()</span>
+          </div>
+  <section class="docstring">
+<p>Stop this agent.</p>
+  </section>
+</section>
+<section class="detail" id="get/2">
+    <div class="detail-header">
+    <a href="#get/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">get(asset, side)</span>
+          </div>
+  <section class="docstring">
+<p>Get market data by specific asset and exchange side.</p>
+  </section>
+</section>
+<section class="detail" id="start_link/1">
+    <div class="detail-header">
+    <a href="#start_link/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">start_link(list)</span>
+          </div>
+  <section class="docstring">
+<p>Start a agent to keep state, here is the order book from Coinbase.</p>
+  </section>
+</section>
+<section class="detail" id="update_level/1">
+    <div class="detail-header">
+    <a href="#update_level/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">update_level(level)</span>
+          </div>
+  <section class="docstring">
+<p>Update changes by given asset, side and price.</p>
+  </section>
+</section>
+<section class="detail" id="update_snapshot/1">
+    <div class="detail-header">
+    <a href="#update_snapshot/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">update_snapshot(snapshot)</span>
+          </div>
+  <section class="docstring">
+<p>Update market data with new snapshot (discard old data).</p>
   </section>
 </section>
           </div>

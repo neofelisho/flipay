@@ -1,9 +1,11 @@
 defmodule Flipay do
   @moduledoc """
-  Flipay keeps the contexts that define your domain
-  and business logic.
+  Flipay is a API service provides below functions.
 
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
+  1. User registration and authentication by JWT.
+  2. Best price finder according to realtime market data from exchanges.
+
+  [Reference here](https://github.com/neofelisho/flipay#usage) for basic usage.
+
   """
 end

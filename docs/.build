@@ -1,11 +1,11 @@
-dist/search_items-958bc9c053.js
+dist/search_items-23553f244c.js
 dist/html-d9f58a6320b5bfa6dd77.css
 dist/html-d9f58a6320b5bfa6dd77.js
 dist/html/fonts/icomoon.eot
 dist/html/fonts/icomoon.svg
 dist/html/fonts/icomoon.ttf
 dist/html/fonts/icomoon.woff
-dist/sidebar_items-b3372a0eb8.js
+dist/sidebar_items-6964aa3e87.js
 api-reference.html
 search.html
 404.html
@@ -14,6 +14,8 @@ Flipay.Accounts.html
 Flipay.BestRateFinder.html
 Flipay.Exchanges.html
 Flipay.Exchanges.Coinbase.html
+Flipay.Exchanges.Coinbase.Client.html
+Flipay.Exchanges.Coinbase.OrderBook.html
 Flipay.Exchanges.Exchange.html
 Flipay.Guardian.Plug.html
 FlipayWeb.html
