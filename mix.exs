@@ -46,7 +46,8 @@ defmodule Flipay.MixProject do
       {:guardian, "~> 1.2"},
       {:decimal, "~> 1.0"},
       {:mock, "~> 0.3.3"},
-      {:ex_doc, "~> 0.20.2"}
+      {:ex_doc, "~> 0.20.2"},
+      {:websockex, "~> 0.4.2"}
     ]
   end
 

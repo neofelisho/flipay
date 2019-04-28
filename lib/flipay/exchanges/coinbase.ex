@@ -5,37 +5,16 @@ defmodule Flipay.Exchanges.Coinbase do
   """
   @behaviour Flipay.Exchanges.Exchange
 
+  alias Flipay.Exchanges.Coinbase.OrderBook
+
   @doc """
   Get order book according to input/output assets.
 
   ## Examples:
 
-      iex> get_order_book("USD", "BTC")
-      {:ok, ~s(
-        {
-          "bids": [
-            ["4000", "10", "1"],
-            ["3900", "1", "1"]
-          ],
-          "asks": [
-            ["5000", "2", "1"],
-            ["6000", "1", "1"]
-          ]
-        }
-      )}
+      iex> get_order_book("BTC-USD", "asks")
+      {:ok, %{"5000" => "2", "6000" => "1"}
+
   """
-  def get_order_book(_input_asset, _output_asset) do
-    {:ok, ~s(
-      {
-        "bids": [
-          ["4000", "10", "1"],
-          ["3900", "1", "1"]
-        ],
-        "asks": [
-          ["5000", "2", "1"],
-          ["6000", "1", "1"]
-        ]
-      }
-    )}
-  end
+  def get_order_book(asset, exchange_side), do: OrderBook.get(asset, exchange_side)
 end

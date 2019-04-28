@@ -13,16 +13,13 @@ defmodule Flipay.BestRateFinder do
       iex> order_book = %Flipay.Exchanges.OrderBook{
       ...>  exchange: Flipay.Exchanges.Coinbase,
       ...>  exchange_side: "asks",
-      ...>  input_asset: "USD",
-      ...>  output_asset: "BTC",
+      ...>  asset: "BTC-USD",
       ...>  quotes: [
       ...>    %Flipay.Exchanges.Quote{
-      ...>      number_of_order: 1,
       ...>      price: 5000,
       ...>      size: 2
       ...>      },
       ...>    %Flipay.Exchanges.Quote{
-      ...>      number_of_order: 1,
       ...>      price: 6000,
       ...>      size: 1
       ...>    }
@@ -47,7 +44,7 @@ defmodule Flipay.BestRateFinder do
 
   ## Examples:
 
-      iex> quotes = [%Flipay.Exchanges.Quote{number_of_order: 1, price: 5000, size: 1}, %Flipay.Exchanges.Quote{number_of_order: 2, price: 4900, size: 1}]
+      iex> quotes = [%Flipay.Exchanges.Quote{price: 5000, size: 1}, %Flipay.Exchanges.Quote{price: 4900, size: 2}]
       iex> {:ok, amount} = Flipay.BestRateFinder.sell_best_rate(quotes, 1, 0)
       iex> amount
       #Decimal<5000>
@@ -60,25 +57,19 @@ defmodule Flipay.BestRateFinder do
       {:error, :not_enough_quotes}
 
   """
-  def sell_best_rate(quotes, remain_size, total_amount) do
-    current_quote = Enum.fetch!(quotes, 0)
+  def sell_best_rate([] = _quotes, _, _), do: {:error, :not_enough_quotes}
 
-    current_size = Decimal.mult(current_quote.size, current_quote.number_of_order)
-
-    cond do
-      Decimal.cmp(remain_size, current_size) == :lt ||
-          Decimal.cmp(remain_size, current_size) == :eq ->
-        {:ok, Decimal.add(total_amount, Decimal.mult(remain_size, current_quote.price))}
-
-      Enum.count(quotes) == 1 ->
-        {:error, :not_enough_quotes}
-
-      true ->
+  def sell_best_rate([current | rest] = _quotes, remain_size, total_amount) do
+    case Decimal.cmp(remain_size, current.size) do
+      :gt ->
         sell_best_rate(
-          Enum.slice(quotes, 1, Enum.count(quotes) - 1),
-          Decimal.sub(remain_size, current_size),
-          Decimal.add(total_amount, Decimal.mult(current_size, current_quote.price))
+          rest,
+          Decimal.sub(remain_size, current.size),
+          Decimal.add(total_amount, Decimal.mult(current.size, current.price))
         )
+
+      _ ->
+        {:ok, Decimal.add(total_amount, Decimal.mult(remain_size, current.price))}
     end
   end
 
@@ -87,7 +78,7 @@ defmodule Flipay.BestRateFinder do
 
   ## Examples
 
-      iex> order_books = [%Flipay.Exchanges.Quote{number_of_order: 1, price: 5000, size: 1}, %Flipay.Exchanges.Quote{number_of_order: 2, price: 5100, size: 1}]
+      iex> order_books = [%Flipay.Exchanges.Quote{price: 5000, size: 1}, %Flipay.Exchanges.Quote{price: 5100, size: 2}]
       iex> {:ok, size} = Flipay.BestRateFinder.buy_best_rate(order_books, 10100, 0)
       iex> size
       #Decimal<2>
@@ -101,28 +92,21 @@ defmodule Flipay.BestRateFinder do
       {:error, :not_enough_quotes}
 
   """
-  def buy_best_rate(order_books, remain_amount, total_size) do
-    current_order = Enum.fetch!(order_books, 0)
+  def buy_best_rate([] = _quotes, _, _), do: {:error, :not_enough_quotes}
 
-    current_amount =
-      current_order.number_of_order
-      |> Decimal.mult(current_order.price)
-      |> Decimal.mult(current_order.size)
+  def buy_best_rate([current | rest] = _quotes, remain_amount, total_size) do
+    current_amount = Decimal.mult(current.price, current.size)
 
-    cond do
-      Decimal.cmp(remain_amount, current_amount) == :lt ||
-          Decimal.cmp(remain_amount, current_amount) == :eq ->
-        {:ok, Decimal.add(total_size, Decimal.div(remain_amount, current_order.price))}
-
-      Enum.count(order_books) == 1 ->
-        {:error, :not_enough_quotes}
-
-      true ->
+    case Decimal.cmp(remain_amount, current_amount) do
+      :gt ->
         buy_best_rate(
-          Enum.slice(order_books, 1, Enum.count(order_books) - 1),
+          rest,
           Decimal.sub(remain_amount, current_amount),
-          Decimal.add(total_size, Decimal.mult(current_order.number_of_order, current_order.size))
+          Decimal.add(total_size, current.size)
         )
+
+      _ ->
+        {:ok, Decimal.add(total_size, Decimal.div(remain_amount, current.price))}
     end
   end
 end

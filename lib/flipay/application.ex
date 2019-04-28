@@ -11,9 +11,11 @@ defmodule Flipay.Application do
       # Start the Ecto repository
       Flipay.Repo,
       # Start the endpoint when the application starts
-      FlipayWeb.Endpoint
+      FlipayWeb.Endpoint,
       # Starts a worker by calling: Flipay.Worker.start_link(arg)
       # {Flipay.Worker, arg},
+      {Flipay.Exchanges.Coinbase.Client, ["BTC-USD", "ETH-USD"]},
+      {Flipay.Exchanges.Coinbase.OrderBook, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
