@@ -182,7 +182,13 @@ curl -X GET \
 The result depends on the request parameters, in above example, we will get:
 
 ```json
-{"best_rate": "2.083333333333333333333333333"}
+{
+    "data": {
+        "output_amount": "2.083333333333333333333333333",
+        "output_asset": "BTC"
+    },
+    "timestamp": 1556435356038
+}
 ```
 
 ### More about code modules and functions
